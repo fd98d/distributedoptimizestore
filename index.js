@@ -1,17 +1,7 @@
-function levelOrder(root) {
-  if (!root) return [];
-  const result = [];
-  const queue = [root];
-  while (queue.length) {
-    const levelSize = queue.length;
-    const currentLevel = [];
-    for (let i = 0; i < levelSize; i++) {
-      const node = queue.shift();
-      currentLevel.push(node.val);
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
-    }
-    result.push(currentLevel);
+function canJump(nums) {
+  let lastPos = nums.length - 1;
+  for (let i = nums.length - 2; i >= 0; i--) {
+    if (i + nums[i] >= lastPos) lastPos = i;
   }
-  return result;
+  return lastPos === 0;
 }
