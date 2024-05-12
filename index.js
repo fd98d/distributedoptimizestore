@@ -1,19 +1,18 @@
-function LRUCache(capacity) {
-  this.capacity = capacity;
-  this.cache = new Map();
-}
-LRUCache.prototype.get = function (key) {
-  if (!this.cache.has(key)) return -1;
-  const value = this.cache.get(key);
-  this.cache.delete(key);
-  this.cache.set(key, value);
-  return value;
-};
-LRUCache.prototype.put = function (key, value) {
-  if (this.cache.has(key)) this.cache.delete(key);
-  if (this.cache.size === this.capacity) {
-    const firstKey = this.cache.keys().next().value;
-    this.cache.delete(firstKey);
+function longestPalindromeSubseq(s) {
+  const n = s.length;
+  const dp = Array.from(Array(n), () => Array(n).fill(0));
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = 1;
   }
-  this.cache.set(key, value);
-};
+  for (let len = 2; len <= n; len++) {
+    for (let i = 0; i < n - len + 1; i++) {
+      const j = i + len - 1;
+      if (s[i] === s[j]) {
+        dp[i][j] = 2 + dp[i + 1][j - 1];
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+  return dp[0][n - 1];
+}
