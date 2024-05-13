@@ -1,18 +1,17 @@
-function longestPalindromeSubseq(s) {
-  const n = s.length;
-  const dp = Array.from(Array(n), () => Array(n).fill(0));
-  for (let i = 0; i < n; i++) {
-    dp[i][i] = 1;
-  }
-  for (let len = 2; len <= n; len++) {
-    for (let i = 0; i < n - len + 1; i++) {
-      const j = i + len - 1;
-      if (s[i] === s[j]) {
-        dp[i][j] = 2 + dp[i + 1][j - 1];
+function countAndSay(n) {
+  let result = "1";
+  for (let i = 1; i < n; i++) {
+    let temp = "";
+    let count = 1;
+    for (let j = 0; j < result.length; j++) {
+      if (result[j] === result[j + 1]) {
+        count++;
       } else {
-        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+        temp += count + result[j];
+        count = 1;
       }
     }
+    result = temp;
   }
-  return dp[0][n - 1];
+  return result;
 }
