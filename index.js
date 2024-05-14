@@ -1,17 +1,11 @@
-function countAndSay(n) {
-  let result = "1";
-  for (let i = 1; i < n; i++) {
-    let temp = "";
-    let count = 1;
-    for (let j = 0; j < result.length; j++) {
-      if (result[j] === result[j + 1]) {
-        count++;
-      } else {
-        temp += count + result[j];
-        count = 1;
-      }
-    }
-    result = temp;
+function findMin(nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] > nums[right]) left = mid + 1;
+    else if (nums[mid] < nums[right]) right = mid;
+    else right--;
   }
-  return result;
+  return nums[left];
 }
